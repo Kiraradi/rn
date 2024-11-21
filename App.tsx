@@ -1,11 +1,11 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {NavagationProvider} from './src/Navagation/NavagationProvider';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.wrapper}>
-      <Text style={styles.rn}>RN</Text>
+      <NavagationProvider />
     </SafeAreaView>
   );
 }
@@ -13,12 +13,6 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rn: {
-    fontSize: 36,
-    fontWeight: 'bold',
   },
 });
 

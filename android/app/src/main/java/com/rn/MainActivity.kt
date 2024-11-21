@@ -22,5 +22,10 @@ class MainActivity : ReactActivity() {
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
-  }    
+  }   
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+ RNBootSplash.init(this, R.style.BootTheme); 
+    super.onCreate(savedInstanceState);
+ } 
 }
