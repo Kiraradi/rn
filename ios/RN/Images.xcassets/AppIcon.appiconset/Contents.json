@@ -19,16 +19,19 @@
       "size" : "29x29"
     },
     {
+      "filename" : "result_result_Logo.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
+      "filename" : "logo_80.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "logo_120.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
@@ -40,6 +43,7 @@
       "size" : "60x60"
     },
     {
+      "filename" : "logo_180.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
