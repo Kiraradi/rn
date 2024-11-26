@@ -1,15 +1,14 @@
-import {Text} from '@react-navigation/elements';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
 interface CustomButtonProps {
   callback: () => void;
-  text: string;
+  children: React.ReactNode;
 }
 const CustomButton: React.FC<CustomButtonProps> = props => {
   return (
     <TouchableOpacity style={styles.wrapper} onPress={props.callback}>
-      <Text style={styles.text}>{props.text}</Text>
+      {props.children}
     </TouchableOpacity>
   );
 };
@@ -21,11 +20,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 56,
-  },
-  text: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
+    marginHorizontal: 25,
   },
 });
 export default CustomButton;
