@@ -36,7 +36,7 @@ const CarouselItem: React.FC<CarouselItemProps> = ({
         index * screenWidth,
         (index + 1) * screenWidth,
       ],
-      [-100, 0, 100],
+      [-120, 0, 120],
     );
 
     return {
