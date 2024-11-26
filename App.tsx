@@ -1,12 +1,17 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {NavagationProvider} from './src/Navagation/NavagationProvider';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Provider} from 'react-redux';
+import {makeStore} from './src/store';
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <NavagationProvider />
-    </SafeAreaView>
+    <GestureHandlerRootView style={styles.wrapper}>
+      <Provider store={makeStore}>
+        <NavagationProvider />
+      </Provider>
+    </GestureHandlerRootView>
   );
 }
 
