@@ -1,37 +1,52 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
-import {SignInSchema} from './SignInSchema';
-import {Pressable, StyleSheet, View} from 'react-native';
-import {Text} from '@react-navigation/elements';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {SignUpSchema} from './SignUpSchema';
 import {ControllerInput} from './ControllerInput';
 import CustomButton from '../CustomButton/CustomButton';
+import {PasswordVerificationList} from './PasswordVerificationList';
 
-interface ISignInForm {
+interface ISignUpForm {
   email: string;
   password: string;
+  confirmPassword: string;
 }
-export const SignInForm: React.FC = () => {
+export const SignUpForm: React.FC = () => {
+  const [isVerificationListShow, setIsVerificationListShow] = useState(false);
+  const [isConfirmPasswordSecure, setConfirmPasswordSecure] = useState(true);
   const [isPasswordSecure, setPasswordSecure] = useState(true);
   const {
+    watch,
     control,
     formState: {errors},
     handleSubmit,
-  } = useForm<ISignInForm>({
-    resolver: yupResolver(SignInSchema),
+  } = useForm<ISignUpForm>({
+    resolver: yupResolver(SignUpSchema),
     mode: 'all',
   });
 
-  const onSubmit = (data: ISignInForm) => {
-    console.log(data);
-  };
+  const passwordValue = watch('password') || '';
+  const confirmPasswordValue = watch('confirmPassword') || '';
+
+  useEffect(() => {
+    setIsVerificationListShow(passwordValue.length > 0);
+  }, [passwordValue]);
+
   const changePasswordSecure = () => {
     setPasswordSecure(prev => !prev);
+  };
+
+  const onSubmit = (data: ISignUpForm) => {
+    console.log(data);
+  };
+  const changeConfirmPasswordSecure = () => {
+    setConfirmPasswordSecure(prev => !prev);
   };
   return (
     <View style={styles.wrapper}>
       <View style={styles.conteiner}>
-        <Controller<ISignInForm>
+        <Controller<ISignUpForm>
           control={control}
           render={({field: {onChange, value}}) => {
             return (
@@ -61,8 +76,9 @@ export const SignInForm: React.FC = () => {
           rules={{required: true}}
         />
       </View>
+
       <View style={styles.conteiner}>
-        <Controller<ISignInForm>
+        <Controller<ISignUpForm>
           control={control}
           render={({field: {onChange, value}}) => {
             return (
@@ -85,12 +101,6 @@ export const SignInForm: React.FC = () => {
                     : require('../../../assets/images/showing.png')
                 }
                 callbackForImg={changePasswordSecure}
-                withError={errors.password?.message ? true : false}
-                errorText={
-                  errors.password && errors.password.message
-                    ? 'Infalid password'
-                    : 'Enter your password'
-                }
               />
             );
           }}
@@ -98,13 +108,47 @@ export const SignInForm: React.FC = () => {
           rules={{required: true}}
         />
       </View>
-      <Pressable style={styles.forgotPasswordButton}>
-        <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
-      </Pressable>
+
+      <PasswordVerificationList
+        password={passwordValue}
+        isShow={isVerificationListShow}
+        confirmPasswordValue={confirmPasswordValue}
+      />
+      <View style={styles.conteiner}>
+        <Controller<ISignUpForm>
+          control={control}
+          render={({field: {onChange, value}}) => {
+            return (
+              <ControllerInput
+                name="Confirm password"
+                value={value}
+                onChange={text => onChange(text)}
+                placeholder="Enter your password"
+                isSecure={isConfirmPasswordSecure}
+                validationStatus={
+                  value?.length > 0
+                    ? errors.confirmPassword && errors.confirmPassword.message
+                      ? 'error'
+                      : 'success'
+                    : null
+                }
+                img={
+                  isConfirmPasswordSecure
+                    ? require('../../../assets/images/show.png')
+                    : require('../../../assets/images/showing.png')
+                }
+                callbackForImg={changeConfirmPasswordSecure}
+              />
+            );
+          }}
+          name="confirmPassword"
+          rules={{required: true}}
+        />
+      </View>
       <CustomButton
         callback={handleSubmit(onSubmit)}
         style={styles.submitButton}>
-        <Text style={styles.submitText}>Sign In</Text>
+        <Text style={styles.submitText}>Confirm</Text>
       </CustomButton>
     </View>
   );
@@ -119,10 +163,23 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'flex-start',
   },
+
   conteiner: {
     flexDirection: 'column',
     gap: 15,
     alignContent: 'flex-start',
+  },
+  criteriaContainer: {
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 5,
+  },
+  criteria: {
+    color: 'red',
+    marginBottom: 5,
+  },
+  valid: {
+    color: 'green',
   },
   submitButton: {
     marginHorizontal: 0,
@@ -132,13 +189,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: 'white',
-  },
-  forgotPasswordButton: {
-    alignItems: 'flex-end',
-  },
-  forgotPasswordText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#13693B',
   },
 });

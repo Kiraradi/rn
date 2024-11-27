@@ -16,6 +16,8 @@ interface ICustomInput {
   validationStatus?: 'success' | 'error' | null;
   isSecure: boolean;
   callbackForImg?: () => void;
+  focus?: () => void;
+  blur?: () => void;
 }
 
 const CustomInput: FC<ICustomInput> = props => {
@@ -36,6 +38,8 @@ const CustomInput: FC<ICustomInput> = props => {
         value={props.value}
         onChangeText={props.onChange}
         placeholder={props.placeholder}
+        onFocus={props.focus}
+        onBlur={props.blur}
       />
     </View>
   );

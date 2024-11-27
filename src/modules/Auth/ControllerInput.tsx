@@ -13,6 +13,8 @@ interface ControllerInputProps {
   value?: string;
   withError?: boolean;
   errorText?: string;
+  focus?: () => void;
+  blur?: () => void;
 }
 export const ControllerInput: React.FC<ControllerInputProps> = props => {
   return (

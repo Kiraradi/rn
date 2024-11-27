@@ -17,7 +17,7 @@ export const AuthStack: React.FC = () => {
           <Stack.Screen
             name={Screens.SignIn}
             component={SignInScreen}
-            options={{headerTitle: 'SIGN IN'}}
+            options={{headerTitle: 'SIGN IN', headerBackVisible: false}}
           />
           <Stack.Screen
             name={Screens.SignUp}
