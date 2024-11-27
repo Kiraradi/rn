@@ -5,6 +5,7 @@ import BootSplash from 'react-native-bootsplash';
 import {RootStack} from './stacks/RootStack';
 import {AuthStack} from './stacks/AuthStack';
 import useOnboardigStatus from '../hooks/useOnboardigStatus';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export const NavagationProvider: FC = () => {
   const {isAvailable} = useOnboardigStatus();
@@ -17,8 +18,10 @@ export const NavagationProvider: FC = () => {
     }
   }, [isAvailable]);
   return (
-    <NavigationContainer>
-      {false ? <RootStack /> : <AuthStack />}
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {false ? <RootStack /> : <AuthStack />}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
