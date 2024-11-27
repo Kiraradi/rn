@@ -14,13 +14,13 @@ type PasswordVerificationListProps = {
 export const PasswordVerificationList: React.FC<
   PasswordVerificationListProps
 > = ({password, isShow: isPasswordFocused, confirmPasswordValue}) => {
-  const checkCriteria = (password: string) => ({
-    hasMinLength: password.length >= 8,
-    hasLowercase: /[a-z]/.test(password),
-    hasUppercase: /[A-Z]/.test(password),
-    hasNumber: /[0-9]/.test(password),
-    hasSpecialChar: /[\W_]/.test(password),
-    passwordsMatch: password === confirmPasswordValue,
+  const checkCriteria = (testingPassword: string) => ({
+    hasMinLength: testingPassword.length >= 8,
+    hasLowercase: /[a-z]/.test(testingPassword),
+    hasUppercase: /[A-Z]/.test(testingPassword),
+    hasNumber: /[0-9]/.test(testingPassword),
+    hasSpecialChar: /[\W_]/.test(testingPassword),
+    passwordsMatch: testingPassword === confirmPasswordValue,
   });
   const slideInValue = useSharedValue(isPasswordFocused ? 1 : 0);
   React.useEffect(() => {
