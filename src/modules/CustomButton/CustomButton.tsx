@@ -1,13 +1,16 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleProp, StyleSheet, TextStyle, TouchableOpacity} from 'react-native';
 
 interface CustomButtonProps {
   callback: () => void;
   children: React.ReactNode;
+  style?: StyleProp<TextStyle>;
 }
 const CustomButton: React.FC<CustomButtonProps> = props => {
   return (
-    <TouchableOpacity style={styles.wrapper} onPress={props.callback}>
+    <TouchableOpacity
+      style={[styles.wrapper, props.style]}
+      onPress={props.callback}>
       {props.children}
     </TouchableOpacity>
   );

@@ -5,9 +5,12 @@ import BootSplash from 'react-native-bootsplash';
 import {RootStack} from './stacks/RootStack';
 import {AuthStack} from './stacks/AuthStack';
 import useOnboardigStatus from '../hooks/useOnboardigStatus';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {useAppSelector} from '../store/hooks/useAppSelector';
 
 export const NavagationProvider: FC = () => {
   const {isAvailable} = useOnboardigStatus();
+  const user = useAppSelector(state => state.user.user);
 
   React.useEffect(() => {
     if (isAvailable) {
@@ -17,8 +20,10 @@ export const NavagationProvider: FC = () => {
     }
   }, [isAvailable]);
   return (
-    <NavigationContainer>
-      {false ? <RootStack /> : <AuthStack />}
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {user ? <RootStack /> : <AuthStack />}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
