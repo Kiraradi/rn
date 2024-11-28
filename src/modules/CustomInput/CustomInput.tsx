@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {forwardRef} from 'react';
 import {
   Image,
   ImageSourcePropType,
@@ -20,7 +20,7 @@ interface ICustomInput {
   blur?: () => void;
 }
 
-const CustomInput: FC<ICustomInput> = props => {
+const CustomInput = forwardRef<TextInput, ICustomInput>((props, ref) => {
   return (
     <View style={styles.container}>
       {props.img && (
@@ -30,6 +30,7 @@ const CustomInput: FC<ICustomInput> = props => {
       )}
 
       <TextInput
+        ref={ref}
         style={[
           styles.input,
           props.validationStatus && styles[props.validationStatus],
@@ -43,7 +44,7 @@ const CustomInput: FC<ICustomInput> = props => {
       />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

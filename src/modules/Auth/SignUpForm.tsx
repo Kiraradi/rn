@@ -6,6 +6,9 @@ import {SignUpSchema} from './SignUpSchema';
 import {ControllerInput} from './ControllerInput';
 import CustomButton from '../CustomButton/CustomButton';
 import {PasswordVerificationList} from './PasswordVerificationList';
+import UserUtils from '../../utils/UserUtils';
+import {useAppDispatch} from '../../store/hooks/useAppDispatch';
+import {addUser} from '../../store/user/UserSlice';
 
 interface ISignUpForm {
   email: string;
@@ -25,6 +28,7 @@ export const SignUpForm: React.FC = () => {
     resolver: yupResolver(SignUpSchema),
     mode: 'all',
   });
+  const dispatch = useAppDispatch();
 
   const passwordValue = watch('password') || '';
   const confirmPasswordValue = watch('confirmPassword') || '';
@@ -38,7 +42,8 @@ export const SignUpForm: React.FC = () => {
   };
 
   const onSubmit = (data: ISignUpForm) => {
-    console.log(data);
+    const newUser = UserUtils.createUser(data.email);
+    dispatch(addUser(newUser));
   };
   const changeConfirmPasswordSecure = () => {
     setConfirmPasswordSecure(prev => !prev);

@@ -1,7 +1,15 @@
 export type UserType = {
   id: number;
-  name: string;
+  name: NameInfo | null;
   email: string;
+  dateOfBirth: string | null;
+  isProfileComplete: boolean;
+};
+
+export type NameInfo = {
+  firstName: string;
+  lastName: string;
+  accountHandle: string;
 };
 
 export type UserState = {
